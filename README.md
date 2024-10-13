@@ -9,4 +9,5 @@
 - Calculate the MA and save to csv file.
 
 ### 3) Back_test.ipynb
-- Back_test.ipynb: This is the jupyter notebook for the backtesting. It contains the code for the moving average strategy and the backtesting process.
+- This is the jupyter notebook for the backtesting. 
+- It contains the code for the moving average strategy and the backtesting process.
