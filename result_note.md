@@ -1,6 +1,6 @@
 # Result Note
 - Period: 2017-08-17 to 2024-10-13
-## Basic strategy:
+## Basic strategy
 - When price cross MA above, buy.
 - when price cross MA below, sell.
 - Trade price: at the **close** of the candle.
