@@ -72,3 +72,25 @@ Final value for MA 180: 289,584.05 USDT
 Final value for MA 200: 205,378.90 USDT
 ```
 - The best performing MA is 100 with a final portfolio value of 461,773.67 USDT
+
+### Stop loss: 3%
+- MA Trading Result: Final portfolio value:
+```
+Final value for MA 10: 10,218.05 USDT
+Final value for MA 20: 95,480.95 USDT
+Final value for MA 30: 78,768.78 USDT
+Final value for MA 50: 168,164.02 USDT
+Final value for MA 60: 169,290.22 USDT
+Final value for MA 90: 314,285.27 USDT
+Final value for MA 100: 428,949.24 USDT
+Final value for MA 110: 236,206.32 USDT
+Final value for MA 120: 182,031.28 USDT
+Final value for MA 130: 186,421.41 USDT
+Final value for MA 140: 173,550.68 USDT
+Final value for MA 150: 262,932.24 USDT
+Final value for MA 160: 285,922.54 USDT
+Final value for MA 170: 313,811.66 USDT
+Final value for MA 180: 304,835.63 USDT
+Final value for MA 200: 216,484.21 USDT
+```
+- The best performing MA is 100 with a final portfolio value of 428,949.24 USDT
