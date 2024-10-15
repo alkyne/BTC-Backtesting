@@ -1,24 +1,28 @@
-import pandas as pd
-import requests
+"""
+This module fetches historical cryptocurrency data from Binance and processes it into a pandas DataFrame.
+"""
+
 import time
 import datetime
+import pandas as pd
+import requests
 
 # Convert a date to a Unix timestamp in milliseconds
 def date_to_milliseconds(date_str):
     dt = datetime.datetime.strptime(date_str, '%Y-%m-%d')
     return int(dt.timestamp() * 1000)
 
-def get_historical_binance_data(symbol='BTCUSDT', interval='1h', start_time=None, limit=1000):
+def get_historical_binance_data(symbol='BTCUSDT', time_interval='1h', start_time=None, limit=1000):
     url = 'https://api.binance.com/api/v3/klines'
     params = {
         'symbol': symbol,
-        'interval': interval,
+        'interval': time_interval,  # Updated parameter name
         'limit': limit
     }
     if start_time:
         params['startTime'] = start_time
     
-    response = requests.get(url, params=params)
+    response = requests.get(url, params=params, timeout=10)  # Added timeout of 10 seconds
     data = response.json()
 
     # Convert to DataFrame
@@ -46,17 +50,15 @@ def gather_all_historical_data(symbol='BTCUSDT', interval='1h', start_date='2017
 
     while True:
         # Using timezone-aware datetime
-        utc_time = datetime.datetime.fromtimestamp(new_timestamp, datetime.UTC)
+        utc_time = datetime.datetime.fromtimestamp(new_timestamp / 1000, datetime.UTC)
         print(f"Fetching data starting from: {utc_time}")
 
         # Fetch data (start from the earliest timestamp or beginning)
-        new_data = get_historical_binance_data(symbol=symbol, interval=interval, start_time=new_timestamp)
+        new_data = get_historical_binance_data(symbol=symbol, time_interval=interval, start_time=new_timestamp)
 
         if new_data.empty:
             print("No more data to fetch.")
             break
-
-        # Append new data to the existing data
 
         # Update the last timestamp to fetch the next batch of data
         new_timestamp = int(new_data['timestamp'].iloc[-1].timestamp() * 1000)
@@ -65,17 +67,25 @@ def gather_all_historical_data(symbol='BTCUSDT', interval='1h', start_date='2017
 
         if existing_timestamp == new_timestamp:
             return all_data
-
-        all_data = pd.concat([all_data, new_data])
+        
+        # firs time
+        if all_data.empty:
+            all_data = pd.concat([all_data, new_data])
+        else:
+            all_data = pd.concat([all_data, new_data[1:]])
         # Sleep to avoid hitting rate limits
         time.sleep(1)
 
     return all_data
 
-# Get all historical BTC 1-hour candle data starting from August 17, 2017
-btc_historical_data = gather_all_historical_data(start_date='2017-08-17')
+if __name__ == '__main__':
+    # Get all historical BTC 1-hour candle data starting from August 17, 2017
+        intervals = ['1h', '2h', '4h', '12h', '1d']
+        # intervals = ['1d']
+        for interval in intervals:
+            btc_historical_data = gather_all_historical_data(interval=interval, start_date='2017-08-16')
 
-# Save the DataFrame to a CSV file
-btc_historical_data.to_csv('btc_all_1h_candles_from_2017.csv', index=False)
+            # Save the DataFrame to a CSV file
+            btc_historical_data.to_csv(f'./data/btc_all_{interval}_candles_from_2017.csv', index=False)
 
-print("Data collection complete!")
+            print(f"Data collection for {interval} complete!")
