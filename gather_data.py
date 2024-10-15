@@ -80,7 +80,8 @@ def gather_all_historical_data(symbol='BTCUSDT', interval='1h', start_date='2017
 
 if __name__ == '__main__':
     # Get all historical BTC 1-hour candle data starting from August 17, 2017
-        intervals = ['1h', '2h', '4h', '12h', '1d']
+        # intervals = ['1h', '2h', '4h', '12h', '1d']
+        intervals = ['4h', '1d']
         # intervals = ['1d']
         for interval in intervals:
             btc_historical_data = gather_all_historical_data(interval=interval, start_date='2017-08-16')
