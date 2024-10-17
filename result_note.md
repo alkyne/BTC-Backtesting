@@ -94,3 +94,7 @@ Final value for MA 180: 304,835.63 USDT
 Final value for MA 200: 216,484.21 USDT
 ```
 - The best performing MA is 100 with a final portfolio value of 428,949.24 USDT
+
+
+## Further results
+- https://t.me/btc_backtesting
